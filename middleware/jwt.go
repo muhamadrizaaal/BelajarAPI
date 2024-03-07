@@ -23,3 +23,14 @@ func GenerateJWT(hp string) (string, error) {
 
 	return result, nil
 }
+
+func DecodeToken(token *jwt.Token) string {
+	var result string
+	var claim = token.Claims.(jwt.MapClaims)
+
+	if val, found := claim["hp"]; found {
+		result = val.(string)
+	}
+
+	return result
+}

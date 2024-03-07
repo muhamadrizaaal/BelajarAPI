@@ -1,7 +1,8 @@
 package config
 
 import (
-	"BelajarAPI/model"
+	"BelajarAPI/model/todo"
+	"BelajarAPI/model/user"
 	"fmt"
 	"os"
 
@@ -76,8 +77,8 @@ func InitSQL(c AppConfig) *gorm.DB {
 		return nil
 	}
 
-	db.AutoMigrate(&model.User{})
-	db.AutoMigrate(&model.DaftarKegiatan{})
+	db.AutoMigrate(&user.User{})
+	db.AutoMigrate(&todo.Todo{})
 
 	return db
 }
