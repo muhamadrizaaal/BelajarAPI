@@ -1,0 +1,382 @@
+openapi: 3.0.0
+info: 
+  description: |
+    Ini adalah BelajarAPI server.
+  version: 1.0.0
+  title: "API BelajarAPI"
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/rizaaalmuhamad/TodoAPI/1.0.0
+  - description: local development
+    url: 'localhost:8000/'
+tags:
+  - name: user
+    description: Organize data user
+  - name: todo
+    description: Organize data todo
+paths:
+  /users:
+    post:
+      tags:
+        - user
+      summary: "register user"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama:
+                  type: string
+                hp: 
+                  type: string
+                password:
+                  type: string
+            example:
+              nama: "rizal"
+              hp: "089312331234"
+              password: "selaluselalu"
+      responses:
+        '201':
+          description: "selamat data sudah terdaftar"
+          content:
+            aplication/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int8
+                  message:
+                    type: string
+              example:
+                code: 201
+                message: "selamat data sudah terdaftar"
+        '400':
+          description: "input data kurang tepat"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int8
+                  message:
+                    type: string
+              example: 
+                code: 400
+                message: "terdapat kesalahan pada data input"
+        '500':
+          description: "server error"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int8
+                  message:
+                    type: string
+              example:
+                code: 500
+                message: "internal server error"
+  /login:
+    post:
+      tags:
+        - user
+      summary: "login user"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - hp
+                - password
+              properties:
+                hp:
+                  type: string
+                password:
+                  type: string
+                  format: password
+                  # minLenght: 8
+            example:
+              hp: "089121212121"
+              password: "selaluselalu"
+      responses:
+        '200':
+          description: "sukses login"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                  data:
+                    type: object
+                  message:
+                    type: string
+              example:
+                code: 200
+                message: "berhasil login"
+                data:
+                  nama: "rizal"
+                  hp: "089512231223"
+                  token: "qwetsatdaysgdyagdygagdyawgy"
+        '400':
+          description: "input data kurang tepat"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int8
+                  message:
+                    type: string
+              example: 
+                code: 400
+                message: "data yang dikirimkan tidak sesuai"
+        '500':
+          description: "server error"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int8
+                  message:
+                    type: string
+              example:
+                code: 500
+                message: "terjadi kesalahan pada proses server"    
+  /activity:
+    post:
+      tags: 
+        - todo
+      summary: "menambahkan todo"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                kegiatan: 
+                  type: string
+            example:
+              kegiatan: "memasak nasi goreng"
+      responses:
+        '201':
+          description: "berhasil menambahkan kegiatan"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int8
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      kegiatan:
+                        type: string
+              example:
+                code: 201
+                message: "berhasil menambahkan kegiatan"
+                data: 
+                  id: 1
+                  kegiatan: "memasak nasi goreng"
+        
+        '400':
+          description: "input data kurang tepat"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int8
+                  message:
+                    type: string
+              example: 
+                code: 400
+                message: "data yang dikirimkan tidak sesuai"
+        '500':
+          description: "server error"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int8
+                  message:
+                    type: string
+              example:
+                code: 500
+                message: "terjadi kesalahan pada proses server"
+    get:
+      tags:
+        - todo
+      summary: "get all todo"
+      responses:
+        '200':
+          description: "mendapatkan todo"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int8
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      kegiatan:
+                        type: string
+              example:
+                code: 200
+                message: "berhasil mendapatkan kegiatan"
+                data: 
+                  id: 1
+                  kegiatan: "memasak nasi goreng"
+        '400':
+          description: "input data kurang tepat"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int8
+                  message:
+                    type: string
+              example: 
+                code: 400
+                message: "data yang dikirimkan tidak sesuai"
+        '500':
+          description: "server error"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int8
+                  message:
+                    type: string
+              example:
+                code: 500
+                message: "terjadi kesalahan pada proses server"        
+        '404':
+          description: "data tidak ditemukan"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int8
+                  message:
+                    type: string
+              example: 
+                code: 404
+                message: "not found"
+  /activity/{id}:
+    put:
+      tags: 
+        - todo
+      summary: "merubah todo"
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                kegiatan: 
+                  type: string
+            example:
+              kegiatan: "memasak mie goreng"
+      responses:
+        '201':
+          description: "sukses merubah data todo"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int8
+                  message:
+                    type: string
+              example: 
+                code: 201
+                message: "berhasil merubah kegiatan"
+        '400':
+          description: "input data kurang tepat"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int8
+                  message:
+                    type: string
+              example: 
+                code: 400
+                message: "data yang dikirimkan tidak sesuai"
+        '500':
+          description: "server error"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int8
+                  message:
+                    type: string
+              example:
+                code: 500
+                message: "terjadi kesalahan pada proses server"
+              
+        
+            
+      
