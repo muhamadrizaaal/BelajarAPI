@@ -1,8 +1,8 @@
 package config
 
 import (
-	"BelajarAPI/model/todo"
-	"BelajarAPI/model/user"
+	todo "BelajarAPI/features/todo/data"
+	user "BelajarAPI/features/user/data"
 	"fmt"
 	"os"
 
